@@ -106,10 +106,11 @@ func (vb *Varnishlogbeat) harvest() error {
 				tx[tag], _ = strconv.Atoi(data)
 
 			case "End":
+				tx["type"] = _type
 				event := common.MapStr{
 					"@timestamp": common.Time(time.Now()),
 					"count":      counter,
-					"type":       _type,
+					"type":       "varnishlog",
 					"vxid":       vxid,
 					"tx":         tx,
 				}
